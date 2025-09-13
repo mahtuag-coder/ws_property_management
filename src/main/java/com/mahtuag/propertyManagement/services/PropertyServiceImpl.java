@@ -1,6 +1,7 @@
 package com.mahtuag.propertyManagement.services;
 
 import com.mahtuag.propertyManagement.entity.Property;
+import com.mahtuag.propertyManagement.exception.PropertyNotFoundException;
 import com.mahtuag.propertyManagement.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,11 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
+    }
+
+    @Override
+    public Property getPropertyById(Long id) {
+        return propertyRepository.findById(id)
+                .orElseThrow(() -> new PropertyNotFoundException("Property with id " + id + " not found"));
     }
 }

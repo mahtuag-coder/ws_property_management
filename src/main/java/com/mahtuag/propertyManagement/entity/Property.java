@@ -1,5 +1,6 @@
 package com.mahtuag.propertyManagement.entity;
 
+import com.mahtuag.propertyManagement.model.enums.PropertyStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,6 +14,11 @@ public class Property {
     @Column(name = "property_id")
     private Long id;
 
-    @Column(name = "address", nullable = false)
-    private String address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="address_id", referencedColumnName = "id", nullable = false)
+    private Address address;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PropertyStatus status = PropertyStatus.AVAILABLE;
 }
