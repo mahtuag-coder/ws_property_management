@@ -1,2 +1,45 @@
-INSERT INTO property (address) VALUES ('1924 Bristol St');
-INSERT INTO property (address) VALUES ('1060 Lakeview Dr');
+-- Insert 20 addresses (DFW cities only)
+INSERT INTO address (id, door_num, street, city, state, zip_code) VALUES
+  (1, '101A', 'Main Street', 'Dallas', 'TX', '75201'),
+  (2, '202B', 'Elm Street', 'Fort Worth', 'TX', '76102'),
+  (3, '303C', 'Maple Ave', 'Plano', 'TX', '75023'),
+  (4, '404D', 'Cedar Lane', 'Frisco', 'TX', '75034'),
+  (5, '505E', 'Oak Drive', 'McKinney', 'TX', '75069'),
+  (6, '606F', 'Birch Road', 'Irving', 'TX', '75062'),
+  (7, '707G', 'Walnut Blvd', 'Arlington', 'TX', '76010'),
+  (8, '808H', 'Sycamore St', 'Garland', 'TX', '75040'),
+  (9, '909I', 'Pecan Way', 'Richardson', 'TX', '75080'),
+  (10, '111J', 'Ash Court', 'Allen', 'TX', '75002'),
+  (11, '112K', 'Willow Drive', 'Mesquite', 'TX', '75150'),
+  (12, '113L', 'Spruce Street', 'Carrollton', 'TX', '75007'),
+  (13, '114M', 'Poplar Road', 'Lewisville', 'TX', '75067'),
+  (14, '115N', 'Magnolia Lane', 'Flower Mound', 'TX', '75028'),
+  (15, '116O', 'Chestnut Blvd', 'Denton', 'TX', '76201'),
+  (16, '117P', 'Redwood Drive', 'The Colony', 'TX', '75056'),
+  (17, '118Q', 'Cypress Ave', 'Grand Prairie', 'TX', '75052'),
+  (18, '119R', 'Palm Street', 'Euless', 'TX', '76039'),
+  (19, '120S', 'Hickory Ct', 'Grapevine', 'TX', '76051'),
+  (20, '121T', 'Beech Way', 'Southlake', 'TX', '76092');
+
+-- Insert 20 properties (linked to addresses above)
+INSERT INTO property (property_id, address_id, status) VALUES
+  (1, 1, 'AVAILABLE'),
+  (2, 2, 'RENTED'),
+  (3, 3, 'UNDER_MAINTENANCE'),
+  (4, 4, 'AVAILABLE'),
+  (5, 5, 'RENTED'),
+  (6, 6, 'AVAILABLE'),
+  (7, 7, 'SOLD'),
+  (8, 8, 'AVAILABLE'),
+  (9, 9, 'RENTED'),
+  (10, 10, 'UNDER_MAINTENANCE'),
+  (11, 11, 'AVAILABLE'),
+  (12, 12, 'RENTED'),
+  (13, 13, 'AVAILABLE'),
+  (14, 14, 'SOLD'),
+  (15, 15, 'AVAILABLE'),
+  (16, 16, 'RENTED'),
+  (17, 17, 'AVAILABLE'),
+  (18, 18, 'UNDER_MAINTENANCE'),
+  (19, 19, 'AVAILABLE'),
+  (20, 20, 'RENTED');
