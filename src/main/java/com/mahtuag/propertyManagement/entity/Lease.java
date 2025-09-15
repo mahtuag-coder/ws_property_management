@@ -32,6 +32,7 @@ public class Lease {
     @Column(nullable = false)
     private Double deposit;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private LeaseStatus status;
 

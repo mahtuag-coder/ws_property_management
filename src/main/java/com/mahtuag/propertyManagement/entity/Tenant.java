@@ -1,5 +1,6 @@
 package com.mahtuag.propertyManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,11 +31,12 @@ public class Tenant {
     @Column(name = "phone")
     private String phone;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private TenantStatus status;
 
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Lease> leases;
-
 
 }

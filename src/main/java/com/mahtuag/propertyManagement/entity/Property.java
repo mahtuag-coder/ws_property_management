@@ -1,5 +1,6 @@
 package com.mahtuag.propertyManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mahtuag.propertyManagement.model.enums.PropertyStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,6 @@ public class Property {
     private PropertyStatus status = PropertyStatus.AVAILABLE;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Lease> leases;
 }
