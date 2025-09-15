@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "property")
 @Data
@@ -21,10 +23,13 @@ public class Property {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="address_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Address address;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PropertyStatus status = PropertyStatus.AVAILABLE;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private List<Lease> leases;
 }
