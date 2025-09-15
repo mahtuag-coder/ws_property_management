@@ -4,6 +4,7 @@ import com.mahtuag.propertyManagement.entity.Property;
 import com.mahtuag.propertyManagement.model.enums.PropertyStatus;
 import com.mahtuag.propertyManagement.model.request.PropertyCreateRequest;
 import com.mahtuag.propertyManagement.services.PropertyService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +43,7 @@ public class PropertyController {
     }
 
     @PostMapping
-    public ResponseEntity<Property> createProperty(@RequestBody PropertyCreateRequest propertyRequest) {
+    public ResponseEntity<Property> createProperty(@RequestBody @Valid PropertyCreateRequest propertyRequest) {
         Property property = propertyService.addProperty(propertyRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(property);
     }
