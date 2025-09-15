@@ -3,24 +3,22 @@ package com.mahtuag.propertyManagement.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.domain.Auditable;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "tenant")
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder(toBuilder = true)
+@AttributeOverride(name = "id", column = @Column(name = "tenant_id", nullable = false))
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tenant {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tenant_id")
-    private Long id;
+public class Tenant extends AuditEntity {
 
     @Column(name = "first_name")
     private String firstName;

@@ -2,24 +2,19 @@ package com.mahtuag.propertyManagement.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "address")
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name="door_num", nullable = false)
+@AttributeOverride(name = "id", column = @Column(name = "address_id", nullable = false))
+public class Address extends AuditEntity {
+    @Column(name = "door_num", nullable = false)
     private String doorNumber;
     @Column(nullable = false)
     private String street;
@@ -27,7 +22,6 @@ public class Address {
     private String city;
     @Column(nullable = false)
     private String state;
-    @Column(name="zip_code",nullable = false)
+    @Column(name = "zip_code", nullable = false)
     private String zip;
-
 }

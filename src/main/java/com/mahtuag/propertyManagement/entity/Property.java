@@ -3,28 +3,23 @@ package com.mahtuag.propertyManagement.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mahtuag.propertyManagement.model.enums.PropertyStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Entity
 @Table(name = "property")
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder(toBuilder = true)
+@AttributeOverride(name = "id", column = @Column(name="property_id", nullable = false))
 @NoArgsConstructor
 @AllArgsConstructor
-public class Property {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "property_id")
-    private Long id;
+public class Property extends AuditEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @Enumerated(EnumType.STRING)

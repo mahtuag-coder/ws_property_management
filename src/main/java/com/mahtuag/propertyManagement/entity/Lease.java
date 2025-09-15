@@ -2,25 +2,20 @@ package com.mahtuag.propertyManagement.entity;
 
 import com.mahtuag.propertyManagement.model.enums.LeaseStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "lease")
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder(toBuilder = true)
+@AttributeOverride(name = "id", column = @Column(name = "lease_id", nullable = false))
 @AllArgsConstructor
 @NoArgsConstructor
-public class Lease {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ls_id")
-    private Long id;
+public class Lease extends AuditEntity {
 
     @Column(name = "ls_strt_date", nullable = false)
     private LocalDate leaseStartDate;
