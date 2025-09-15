@@ -1,3 +1,16 @@
+-- Insert tenants
+INSERT INTO tenant (first_name, last_name, email, phone, status) VALUES
+('Alice', 'Johnson', 'alice.johnson@example.com', '2145551001', 'ACTIVE'),
+('Bob', 'Smith', 'bob.smith@example.com', '2145551002', 'ACTIVE'),
+('Charlie', 'Davis', 'charlie.davis@example.com', '2145551003', 'INACTIVE'),
+('Diana', 'Lopez', 'diana.lopez@example.com', '2145551004', 'ACTIVE'),
+('Ethan', 'Brown', 'ethan.brown@example.com', '2145551005', 'BLACKLISTED'),
+('Fiona', 'Wilson', 'fiona.wilson@example.com', '2145551006', 'ACTIVE'),
+('George', 'Miller', 'george.miller@example.com', '2145551007', 'ACTIVE'),
+('Hannah', 'Garcia', 'hannah.garcia@example.com', '2145551008', 'INACTIVE'),
+('Ian', 'Martinez', 'ian.martinez@example.com', '2145551009', 'ACTIVE'),
+('Julia', 'Taylor', 'julia.taylor@example.com', '2145551010', 'ACTIVE');
+
 -- Insert 20 addresses (DFW cities only)
 INSERT INTO address (door_num, street, city, state, zip_code) VALUES
   ('101A', 'Main Street', 'Dallas', 'TX', '75201'),
