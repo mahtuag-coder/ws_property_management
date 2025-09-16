@@ -18,6 +18,26 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND.value())
                 .message(e.getMessage())
                 .error(HttpStatus.NOT_FOUND.getReasonPhrase())
-                .build(),  HttpStatus.NOT_FOUND);
+                .build(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(LeaseValidationException.class)
+    public ResponseEntity<ErrorResponse> handleLeaseValidationException(LeaseValidationException e) {
+        return new ResponseEntity<>(ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message(e.getMessage())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        return new ResponseEntity<>(ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message(e.getMessage())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -5,7 +5,11 @@ import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import com.mahtuag.propertyManagement.model.request.TenantRequest;
 import com.mahtuag.propertyManagement.repository.TenantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +31,11 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
+    public Page<Tenant> findAllTenants(Pageable pageable) {
+        return tenantRepository.findAll(pageable);
+    }
+
+    @Override
     public Tenant updateTenant(TenantRequest tenantRequest) {
         return null;
     }
@@ -34,12 +43,12 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public Tenant getTenantById(Long id) {
         return tenantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tenant with id " + id + " not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Tenant with id " + id + " not found"));
     }
 
     @Override
-    public Tenant getTenantByName(String name) {
-        return null;
+    public List<Tenant> getTenantsByName(String firstName, String lastName) {
+        return tenantRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(firstName, lastName);
     }
 
     @Override

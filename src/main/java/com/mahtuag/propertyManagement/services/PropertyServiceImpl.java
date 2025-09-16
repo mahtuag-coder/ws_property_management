@@ -36,7 +36,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Property addProperty(PropertyCreateRequest propertyCreateRequest) {
+    public Property saveProperty(PropertyCreateRequest propertyCreateRequest) {
         Address address = Address.builder()
                 .doorNumber(propertyCreateRequest.getDoorNum())
                 .street(propertyCreateRequest.getStreet())

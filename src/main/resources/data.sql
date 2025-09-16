@@ -1,4 +1,6 @@
--- Insert tenantsINSERT INTO tenant (first_name, last_name, email, phone, status, create_date_time, update_date_time, created_by, last_modified_by)
+
+--Insert tenants
+INSERT INTO tenant (first_name, last_name, email, phone, status, create_date_time, update_date_time, created_by, last_modified_by)
 VALUES ('Alice', 'Johnson', 'alice.johnson@example.com', '2145551001', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'SYSTEM', 'SYSTEM'),
        ('Bob', 'Smith', 'bob.smith@example.com', '2145551002', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'SYSTEM', 'SYSTEM'),
        ('Charlie', 'Davis', 'charlie.davis@example.com', '2145551003', 'INACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'SYSTEM', 'SYSTEM'),

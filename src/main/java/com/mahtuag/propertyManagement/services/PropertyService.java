@@ -7,8 +7,6 @@ import com.mahtuag.propertyManagement.model.request.PropertyCreateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface PropertyService {
 
     Page<Property> getAllProperties(Pageable pageable);
@@ -17,5 +15,5 @@ public interface PropertyService {
 
     Page<Property> getPropertiesByStatus(PropertyStatus status, Pageable pageable);
 
-    Property addProperty(PropertyCreateRequest propertyCreateRequest);
+    Property saveProperty(PropertyCreateRequest propertyCreateRequest);
 }
