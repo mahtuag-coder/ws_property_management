@@ -11,4 +11,8 @@ public interface LeaseService {
     Lease issueLease(LeaseRequest lease);
 
     Page<Lease> findAllLeasesByStatus(LeaseStatus status, Pageable pageable);
+
+    Lease terminateLease(Long leaseId);
+
+    void expireLeases();
 }
