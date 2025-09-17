@@ -32,4 +32,10 @@ public class LeaseController {
         Lease lease = leaseService.issueLease(leaseRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(lease);
     }
+
+    @PatchMapping("/{id}/terminate")
+    public ResponseEntity<Lease> terminateLease(@PathVariable Long id) {
+        Lease lease = leaseService.terminateLease(id);
+        return ResponseEntity.status(HttpStatus.OK).body(lease);
+    }
 }
