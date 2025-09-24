@@ -1,6 +1,7 @@
 package com.mahtuag.propertyManagement.controller;
 
 import com.mahtuag.propertyManagement.entity.Tenant;
+import com.mahtuag.propertyManagement.model.dto.PagedResponse;
 import com.mahtuag.propertyManagement.model.dto.TenantResponse;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import com.mahtuag.propertyManagement.model.request.TenantRequest;
@@ -19,16 +20,17 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/tenant")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class TenantController {
 
     private final TenantService tenantService;
 
     @GetMapping
-    public ResponseEntity<Page<TenantResponse>> getAllTenants(@RequestParam(defaultValue = "0", required = false) Integer page,
+    public ResponseEntity<PagedResponse<TenantResponse>> getAllTenants(@RequestParam(defaultValue = "0", required = false) Integer page,
                                                               @RequestParam(defaultValue = "10", required = false) Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(tenantService.findAllTenants(pageable));
+        Page<TenantResponse> tenantPage = tenantService.findAllTenants(pageable);
+
+        return ResponseEntity.ok(PagedResponse.fromPage(tenantPage));
     }
 
     @GetMapping("/{id}")
