@@ -1,6 +1,7 @@
 package com.mahtuag.propertyManagement.services;
 
 import com.mahtuag.propertyManagement.entity.Tenant;
+import com.mahtuag.propertyManagement.model.dto.TenantResponse;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import com.mahtuag.propertyManagement.model.request.TenantRequest;
 import com.mahtuag.propertyManagement.repository.TenantRepository;
@@ -31,8 +32,9 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
-    public Page<Tenant> findAllTenants(Pageable pageable) {
-        return tenantRepository.findAll(pageable);
+    public Page<TenantResponse> findAllTenants(Pageable pageable) {
+        return tenantRepository.findAll(pageable)
+                .map(this::buildTenantResponse);
     }
 
     @Override
@@ -56,5 +58,14 @@ public class TenantServiceImpl implements TenantService {
         Tenant tenant = getTenantById(id);
         tenant.setStatus(status);
         return tenantRepository.save(tenant);
+    }
+
+    private TenantResponse buildTenantResponse(Tenant tenant) {
+        return TenantResponse.builder()
+                .name(tenant.getLastName() + ", " + tenant.getFirstName())
+                .email(tenant.getEmail())
+                .phone(tenant.getPhone())
+                .status(tenant.getStatus())
+                .build();
     }
 }

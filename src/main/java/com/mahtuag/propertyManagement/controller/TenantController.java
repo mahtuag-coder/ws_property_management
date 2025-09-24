@@ -1,6 +1,7 @@
 package com.mahtuag.propertyManagement.controller;
 
 import com.mahtuag.propertyManagement.entity.Tenant;
+import com.mahtuag.propertyManagement.model.dto.TenantResponse;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import com.mahtuag.propertyManagement.model.request.TenantRequest;
 import com.mahtuag.propertyManagement.services.TenantService;
@@ -23,8 +24,8 @@ public class TenantController {
     private final TenantService tenantService;
 
     @GetMapping
-    public ResponseEntity<Page<Tenant>> getAllTenants(@RequestParam(defaultValue = "0", required = false) Integer page,
-                                                      @RequestParam(defaultValue = "10", required = false) Integer size) {
+    public ResponseEntity<Page<TenantResponse>> getAllTenants(@RequestParam(defaultValue = "0", required = false) Integer page,
+                                                              @RequestParam(defaultValue = "10", required = false) Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(tenantService.findAllTenants(pageable));
     }
