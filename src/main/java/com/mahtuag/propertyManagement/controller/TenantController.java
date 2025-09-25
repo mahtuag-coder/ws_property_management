@@ -34,8 +34,8 @@ public class TenantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tenant> getTenantById(@PathVariable Long id) {
-        Tenant tenant = tenantService.getTenantById(id);
+    public ResponseEntity<TenantResponse> getTenantById(@PathVariable Long id) {
+        TenantResponse tenant = tenantService.getTenantResponseById(id);
         return ResponseEntity.ok(tenant);
     }
 

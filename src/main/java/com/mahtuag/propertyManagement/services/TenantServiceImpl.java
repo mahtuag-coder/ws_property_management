@@ -60,9 +60,16 @@ public class TenantServiceImpl implements TenantService {
         return tenantRepository.save(tenant);
     }
 
+    @Override
+    public TenantResponse getTenantResponseById(Long id) {
+        return this.buildTenantResponse(getTenantById(id));
+    }
+
     private TenantResponse buildTenantResponse(Tenant tenant) {
         return TenantResponse.builder()
-                .name(tenant.getLastName() + ", " + tenant.getFirstName())
+                .id(tenant.getId())
+                .firstName(tenant.getFirstName())
+                .lastName(tenant.getLastName())
                 .email(tenant.getEmail())
                 .phone(tenant.getPhone())
                 .status(tenant.getStatus())

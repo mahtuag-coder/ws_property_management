@@ -15,6 +15,7 @@ public interface TenantService {
     Tenant addTenant(TenantRequest tenant);
     Tenant updateTenant(TenantRequest tenant);
     Tenant getTenantById(Long id);
+    TenantResponse getTenantResponseById(Long id);
     List<Tenant> getTenantsByName(String firstName, String lastName);
     Tenant updateTenantStatus(Long id, TenantStatus status);
 }
