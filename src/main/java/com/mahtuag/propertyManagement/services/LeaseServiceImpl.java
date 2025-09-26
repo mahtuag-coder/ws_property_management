@@ -10,6 +10,7 @@ import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import com.mahtuag.propertyManagement.model.request.LeaseRequest;
 import com.mahtuag.propertyManagement.repository.LeaseRepository;
 import com.mahtuag.propertyManagement.repository.PropertyRepository;
+import com.mahtuag.propertyManagement.repository.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ import java.time.OffsetDateTime;
 public class LeaseServiceImpl implements LeaseService {
 
     private final LeaseRepository leaseRepository;
-    private final TenantService tenantService;
+    private final TenantRepository tenantRepository;
     private final PropertyService propertyService;
     private final PropertyRepository propertyRepository;
 
@@ -61,7 +62,9 @@ public class LeaseServiceImpl implements LeaseService {
 
     @Override
     public Lease issueLease(LeaseRequest leaseRequest) {
-        Tenant tenant = tenantService.getTenantById(leaseRequest.getTenantId());
+        Tenant tenant = tenantRepository.findById(leaseRequest.getTenantId())
+                .orElseThrow(() -> new IllegalArgumentException("Tenant with id: " + leaseRequest.getTenantId() + " not found"));
+
         Property property = propertyService.getPropertyById(leaseRequest.getPropertyId());
 
         if (property.getStatus() != PropertyStatus.AVAILABLE) {
