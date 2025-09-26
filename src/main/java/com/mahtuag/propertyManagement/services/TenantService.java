@@ -10,5 +10,5 @@ public interface TenantService {
     Page<TenantResponse> findAllTenants(Pageable pageable);
     TenantResponse findTenantById(Long id);
     TenantResponse createTenant(TenantRequest tenant);
-    TenantResponse updateTenant(TenantRequest tenant);
+    TenantResponse updateTenant(Long id, TenantRequest tenant);
 }

@@ -1,9 +1,7 @@
 package com.mahtuag.propertyManagement.controller;
 
-import com.mahtuag.propertyManagement.entity.Tenant;
 import com.mahtuag.propertyManagement.model.dto.PagedResponse;
 import com.mahtuag.propertyManagement.model.dto.TenantResponse;
-import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import com.mahtuag.propertyManagement.model.request.TenantRequest;
 import com.mahtuag.propertyManagement.services.TenantService;
 import jakarta.validation.Valid;
@@ -15,10 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(value = "/tenant")
+@RequestMapping(value = "/tenants")
 @RequiredArgsConstructor
 public class TenantController {
 
@@ -46,9 +42,9 @@ public class TenantController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tenant);
     }
 
-    @PatchMapping()
-    public ResponseEntity<TenantResponse> updateTenant(@RequestBody @Valid TenantRequest tenantRequest) {
-        TenantResponse tenant = tenantService.updateTenant(tenantRequest);
+    @PatchMapping("/{id}")
+    public ResponseEntity<TenantResponse> updateTenant(@PathVariable Long id, @RequestBody @Valid TenantRequest tenantRequest) {
+        TenantResponse tenant = tenantService.updateTenant(id, tenantRequest);
         return ResponseEntity.ok(tenant);
     }
 }
