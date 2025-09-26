@@ -35,24 +35,20 @@ public class TenantController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TenantResponse> getTenantById(@PathVariable Long id) {
-        TenantResponse tenant = tenantService.getTenantResponseById(id);
+        TenantResponse tenant = tenantService.findTenantById(id);
         return ResponseEntity.ok(tenant);
     }
 
-    @GetMapping("/name")
-    public ResponseEntity<List<Tenant>> getTenantsByName(@RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
-        return ResponseEntity.ok(tenantService.getTenantsByName(firstName, lastName));
-    }
 
     @PostMapping
-    public ResponseEntity<Tenant> createTenant(@RequestBody @Valid TenantRequest tenantRequest) {
-        Tenant tenant = tenantService.addTenant(tenantRequest);
+    public ResponseEntity<TenantResponse> createTenant(@RequestBody @Valid TenantRequest tenantRequest) {
+        TenantResponse tenant = tenantService.createTenant(tenantRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(tenant);
     }
 
-    @PatchMapping("/status/{status}")
-    public ResponseEntity<Tenant> updateTenantStatus(@RequestParam(required = true) Long id, @PathVariable TenantStatus status) {
-        Tenant tenant = tenantService.updateTenantStatus(id, status);
+    @PatchMapping()
+    public ResponseEntity<TenantResponse> updateTenant(@RequestBody @Valid TenantRequest tenantRequest) {
+        TenantResponse tenant = tenantService.updateTenant(tenantRequest);
         return ResponseEntity.ok(tenant);
     }
 }

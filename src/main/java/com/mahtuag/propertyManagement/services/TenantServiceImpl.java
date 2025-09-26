@@ -19,60 +19,28 @@ public class TenantServiceImpl implements TenantService {
     private final TenantRepository tenantRepository;
 
     @Override
-    public Tenant addTenant(TenantRequest tenantRequest) {
-        Tenant tenant = Tenant.builder()
-                .firstName(tenantRequest.getFirstName())
-                .lastName(tenantRequest.getLastName())
-                .email(tenantRequest.getEmail())
-                .phone(tenantRequest.getPhone())
-                .status(tenantRequest.getStatus())
-                .build();
-
-        return tenantRepository.save(tenant);
+    public TenantResponse createTenant(TenantRequest tenantRequest) {
+        Tenant tenant = tenantRepository.save(tenantRequest.toEntity());
+        return TenantResponse.fromEntity(tenant);
     }
 
     @Override
     public Page<TenantResponse> findAllTenants(Pageable pageable) {
         return tenantRepository.findAll(pageable)
-                .map(this::buildTenantResponse);
+                .map(TenantResponse::fromEntity);
     }
 
     @Override
-    public Tenant updateTenant(TenantRequest tenantRequest) {
-        return null;
+    public TenantResponse updateTenant(TenantRequest tenantRequest) {
+        Tenant updateTenant = tenantRepository.save(tenantRequest.toEntity());
+        return TenantResponse.fromEntity(updateTenant);
     }
 
     @Override
-    public Tenant getTenantById(Long id) {
-        return tenantRepository.findById(id)
+    public TenantResponse findTenantById(Long id) {
+        Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tenant with id " + id + " not found"));
-    }
 
-    @Override
-    public List<Tenant> getTenantsByName(String firstName, String lastName) {
-        return tenantRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(firstName, lastName);
-    }
-
-    @Override
-    public Tenant updateTenantStatus(Long id, TenantStatus status) {
-        Tenant tenant = getTenantById(id);
-        tenant.setStatus(status);
-        return tenantRepository.save(tenant);
-    }
-
-    @Override
-    public TenantResponse getTenantResponseById(Long id) {
-        return this.buildTenantResponse(getTenantById(id));
-    }
-
-    private TenantResponse buildTenantResponse(Tenant tenant) {
-        return TenantResponse.builder()
-                .id(tenant.getId())
-                .firstName(tenant.getFirstName())
-                .lastName(tenant.getLastName())
-                .email(tenant.getEmail())
-                .phone(tenant.getPhone())
-                .status(tenant.getStatus())
-                .build();
+        return TenantResponse.fromEntity(tenant);
     }
 }
