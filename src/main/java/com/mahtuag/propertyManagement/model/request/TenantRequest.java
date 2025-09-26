@@ -1,6 +1,5 @@
 package com.mahtuag.propertyManagement.model.request;
 
-import com.mahtuag.propertyManagement.entity.Tenant;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,17 +30,5 @@ public class TenantRequest {
 
     @NotNull(message = "Status is required")
     private TenantStatus status;
-
-    public Tenant toEntity() {
-        return Tenant.builder()
-                .id(id)
-                .firstName(firstName)
-                .lastName(lastName)
-                .email(email)
-                .phone(phone)
-                .status(status)
-                .build();
-    }
-
 
 }
