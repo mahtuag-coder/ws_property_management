@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TenantRequest {
-    private Long id;
-
     @NotBlank(message = "First Name is required.")
     private String firstName;
 

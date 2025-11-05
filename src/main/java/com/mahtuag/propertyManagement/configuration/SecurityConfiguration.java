@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .requestMatchers("/tenants/**").permitAll()
+                        .requestMatchers("/property/**").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();
