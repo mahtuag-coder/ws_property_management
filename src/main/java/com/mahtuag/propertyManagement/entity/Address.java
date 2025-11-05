@@ -23,5 +23,5 @@ public class Address extends AuditEntity {
     @Column(nullable = false)
     private String state;
     @Column(name = "zip_code", nullable = false)
-    private String zip;
+    private String zipcode;
 }

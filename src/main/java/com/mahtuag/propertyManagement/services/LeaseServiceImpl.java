@@ -4,6 +4,7 @@ import com.mahtuag.propertyManagement.entity.Lease;
 import com.mahtuag.propertyManagement.entity.Property;
 import com.mahtuag.propertyManagement.entity.Tenant;
 import com.mahtuag.propertyManagement.exception.LeaseValidationException;
+import com.mahtuag.propertyManagement.exception.PropertyNotFoundException;
 import com.mahtuag.propertyManagement.model.enums.LeaseStatus;
 import com.mahtuag.propertyManagement.model.enums.PropertyStatus;
 import com.mahtuag.propertyManagement.model.enums.TenantStatus;
@@ -65,7 +66,8 @@ public class LeaseServiceImpl implements LeaseService {
         Tenant tenant = tenantRepository.findById(leaseRequest.getTenantId())
                 .orElseThrow(() -> new IllegalArgumentException("Tenant with id: " + leaseRequest.getTenantId() + " not found"));
 
-        Property property = propertyService.getPropertyById(leaseRequest.getPropertyId());
+        Property property = propertyRepository.findById(leaseRequest.getPropertyId())
+                .orElseThrow(() -> new PropertyNotFoundException("Property with id " + leaseRequest.getPropertyId() + " not found"));
 
         if (property.getStatus() != PropertyStatus.AVAILABLE) {
             throw new LeaseValidationException("Property is not active");
