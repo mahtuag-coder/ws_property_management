@@ -24,7 +24,8 @@ The project uses **Spring Boot 3**, **Spring Data JPA**, **H2/MySQL**, and **Spr
 - Java 17
 - Spring Boot 3.x
 - Spring Data JPA + Hibernate
-- H2 (for dev) / MySQL or Postgres (for prod)
+- Postgres
+- Caffeine in-memory caching
 - Lombok
 - Springdoc OpenAPI (Swagger UI)
 - Docker + Docker Compose (optional)
