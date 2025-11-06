@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .requestMatchers("/tenants/**").permitAll()
                         .requestMatchers("/property/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();

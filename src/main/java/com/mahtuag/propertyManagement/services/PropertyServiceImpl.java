@@ -9,6 +9,8 @@ import com.mahtuag.propertyManagement.model.mappers.PropertyMapper;
 import com.mahtuag.propertyManagement.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+    @Cacheable(value = "propertyCache", key = "#id")
     public PropertyResponse getPropertyById(Long id) {
         Property property =  propertyRepository.findById(id)
                 .orElseThrow(() -> new PropertyNotFoundException("Property with id " + id + " not found"));
@@ -50,6 +53,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+    @CacheEvict(value = "propertyCache", key = "#id")
     public void deletePropertyById(Long id) {
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new PropertyNotFoundException("Property with id " + id + " not found"));
