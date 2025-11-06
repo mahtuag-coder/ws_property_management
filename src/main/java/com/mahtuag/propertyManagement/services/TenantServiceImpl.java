@@ -9,6 +9,10 @@ import com.mahtuag.propertyManagement.repository.TenantRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,6 +40,10 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
+    @Caching(
+            put = {@CachePut(value = "tenantCache", key = "#result.id")},
+            evict = {@CacheEvict(value = "tenantCache", allEntries = true)}
+    )
     public TenantResponse updateTenant(Long id, TenantRequest tenantRequest) {
         Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tenant with id " + id + " not found"));
@@ -61,6 +69,7 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
+    @CacheEvict(value = "tenantCache", key = "#id")
     public void deleteTenant(Long id) {
         Tenant tenant = tenantRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Tenant with id " + id + " not found"));
@@ -68,6 +77,7 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
+    @Cacheable(value = "tenantCache", key = "#id")
     public TenantResponse findTenantById(Long id) {
         Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tenant with id " + id + " not found"));

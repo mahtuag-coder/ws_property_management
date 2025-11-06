@@ -3,6 +3,15 @@ server:
   servlet:
     context-path: /property-management
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, caches, metrics
+  endpoint:
+    health:
+      show-details: always
+
 spring:
   datasource:
     url: ${DB_URL}
@@ -16,3 +25,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  cache:
+    type: caffeine
+    cache-names:
+      - propertyCache
+      - tenantCache
+    caffeine:
+      spec: maximumSize=50,expireAfterWrite=5m
+
