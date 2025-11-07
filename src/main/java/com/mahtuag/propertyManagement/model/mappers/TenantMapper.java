@@ -18,6 +18,6 @@ public interface TenantMapper {
     Tenant toEntity(TenantRequest tenantRequest);
 
     // Partial updates
-    @Mapping(target = "id", ignore = true)  // 🚨 don’t overwrite primary key
+    @Mapping(target = "id", ignore = true)
     void updateTenantFromRequest(TenantRequest tenantRequest, @MappingTarget Tenant tenant);
 }

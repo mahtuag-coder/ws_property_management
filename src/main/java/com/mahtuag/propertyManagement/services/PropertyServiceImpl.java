@@ -10,7 +10,9 @@ import com.mahtuag.propertyManagement.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,10 +34,23 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     @Cacheable(value = "propertyCache", key = "#id")
     public PropertyResponse getPropertyById(Long id) {
-        Property property =  propertyRepository.findById(id)
+        Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new PropertyNotFoundException("Property with id " + id + " not found"));
 
         return propertyMapper.toResponse(property);
+    }
+
+    @Override
+    @Caching(
+            put = {@CachePut(value = "propertyCache", key = "#id")}
+    )
+    public PropertyResponse updateProperty(Long id, PropertyRequest propertyUpdateRequest) {
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new PropertyNotFoundException("Property with id " + id + " not found"));
+
+        propertyMapper.updatePropertyFromRequest(propertyUpdateRequest, property);
+        Property updatedProperty = propertyRepository.save(property);
+        return propertyMapper.toResponse(updatedProperty);
     }
 
     @Override
@@ -46,8 +61,8 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyResponse saveProperty(PropertyRequest propertyRequest) {
-       Property property = propertyMapper.toEntity(propertyRequest);
-       Property savedProperty = propertyRepository.save(property);
+        Property property = propertyMapper.toEntity(propertyRequest);
+        Property savedProperty = propertyRepository.save(property);
 
         return propertyMapper.toResponse(savedProperty);
     }

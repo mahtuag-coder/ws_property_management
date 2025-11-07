@@ -45,6 +45,13 @@ public class PropertyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(property);
     }
 
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<PropertyResponse> updateProperty(@PathVariable(required = true) Long id,
+                                                           @RequestBody PropertyRequest propertyRequest) {
+        return ResponseEntity.ok(propertyService.updateProperty(id, propertyRequest));
+
+    }
+
     @DeleteMapping
     public ResponseEntity<Void> deletePropertyById(@RequestParam(required = true) Long id) {
         propertyService.deletePropertyById(id);
